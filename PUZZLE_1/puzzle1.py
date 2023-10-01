@@ -32,4 +32,3 @@ while rebut == 0:
         print("\nPrograma interrumpido.")
         break
     
-    #aaaaa
