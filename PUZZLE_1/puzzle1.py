@@ -31,3 +31,5 @@ while rebut == 0:
     except KeyboardInterrupt:  #una excepció per si hi ha algun problema, indicar-ho
         print("\nPrograma interrumpido.")
         break
+    
+    #aaaaa
