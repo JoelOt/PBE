@@ -1,6 +1,2 @@
-import gi
-import cairo
-gi.require_foreign('cairo')
-gi.require_version('Gtk', '3.0')
-
-print(gi.version_info)
+import busio
+from adafruit_pn532.i2c import PN532_I2C

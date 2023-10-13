@@ -1,3 +1,4 @@
+import puzzle1
 from gi.repository import Gtk
 
 class MyWindow(Gtk.Window):
@@ -10,8 +11,11 @@ class MyWindow(Gtk.Window):
         self.add(self.button)  #afegir-lo a la window
 
     def on_button_clicked(self, widget):
-        print ("Hello World")
+        print(l1.llegir())
+        print("Hello World")
 
+
+l1 = puzzle1.Lector_NFC()
 win = MyWindow()
 win.connect("delete-event", Gtk.main_quit)
 win.show_all()

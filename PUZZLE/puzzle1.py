@@ -34,5 +34,5 @@ class Lector_NFC():
 
 if __name__ == '__main__': 
     l1 = Lector_NFC()
-    l1.llegir()
+    print(l1.llegir())
     
