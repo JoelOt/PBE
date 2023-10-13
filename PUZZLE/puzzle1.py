@@ -12,10 +12,9 @@ class Lector_NFC():
         
         # Inicializa el PN532
         self.pn532.SAM_configuration() #metode de configuració del lector
-        self.uid_str = ""  #la sortida comença buida
-        self.rebut = 0
         
     def llegir(self):
+        uid_str = ""
         print("Esperant una tarjeta NFC...")
         while True:
             try:
@@ -24,9 +23,9 @@ class Lector_NFC():
         
                 if uid:  #en cas que la llegeixi
                     for i in uid:  #hem de transformar el array de HEX a numeros en decimal. per això ho fem un a un
-                        self.uid_str = self.uid_str + str(i)
+                        uid_str = uid_str + str(i)
                     #print(self.uid_str)
-                    return self.uid_str
+                    return uid_str
                     
             except KeyboardInterrupt:  #una excepció per si hi ha algun problema, indicar-ho
                 print("\nPrograma interrumpido.")

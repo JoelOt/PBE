@@ -2,19 +2,31 @@ import puzzle1
 from gi.repository import Gtk
 
 class MyWindow(Gtk.Window):
+    
+    idd = None
 
     def __init__(self):
         Gtk.Window.__init__(self, title="Hello World")
+        
+        
+        self.llegir = Gtk.Button(label="Prem per llegir")  #crear el botó
+        self.llegir.connect("clicked", self.lector)  #acció del botó
+        self.add(self.llegir)  #afegir-lo a la window
+        
+        self.neteja = Gtk.Button(label="neteja")
+        self.neteja.connect("clicked", self.netejar)
+        self.add(self.neteja)
+        
+    def lector(self, widget):
+        idd = l1.llegir()
+        print(idd)
+        #print("Hello World")
 
-        self.button = Gtk.Button(label="Click Here")  #crear el botó
-        self.button.connect("clicked", self.on_button_clicked)  #acció del botó
-        self.add(self.button)  #afegir-lo a la window
-
-    def on_button_clicked(self, widget):
-        print(l1.llegir())
-        print("Hello World")
+    def netejar(self, widget):
+        idd = None
 
 
+#main:        
 l1 = puzzle1.Lector_NFC()
 win = MyWindow()
 win.connect("delete-event", Gtk.main_quit)
