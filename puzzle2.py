@@ -1,6 +1,7 @@
 import threading
 import puzzle1
 from gi.repository import Gtk, Gdk, GObject
+import time
 
 class MyWindow(Gtk.Window):
     
@@ -28,23 +29,22 @@ class MyWindow(Gtk.Window):
         self.col2.pack_start(self.clear, True, True, 0)
     
     def netejarPremut(self, widjet):
-        thread2 = threading.Thread(target= self.metodeThread, args=("tipus2",))
+        thread2 = threading.Thread(target= self.metodeThread)
         thread2.start()
         
-    def metodeThread(self, name):
-            GObject.idle_add(self.update_ui, name)
+    def metodeThread(self):
+        GObject.idle_add(self.update_ui)
+        uid = l1.llegir()
+        print(uid)
+        GObject.idle_add(self.update_ui2, uid)
         
-        
-    def update_ui(self, name): 
-        if name == "tipus2":
-            self.msg.set_text("Esperant targeta NFC...")
-            self.msg.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("green")) 
-            
-        if name == "tipus1":
-            uid = l1.llegir()
-            print(uid)
-            self.msg.set_text(uid)
-            self.msg.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))
+    def update_ui(self): 
+        self.msg.set_text("Esperant targeta NFC...")
+        self.msg.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("green"))
+    
+    def update_ui2(self, uid):
+        self.msg.set_text(uid)
+        self.msg.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))
         
 
 
@@ -54,6 +54,6 @@ l1 = puzzle1.Lector_NFC()
 win = MyWindow()
 win.connect("destroy", Gtk.main_quit)
 win.show_all()
-thread1 = threading.Thread(target= win.metodeThread, args=("tipus1",))
+thread1 = threading.Thread(target= win.metodeThread)
 thread1.start()
 Gtk.main()
