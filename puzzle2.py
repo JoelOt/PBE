@@ -1,7 +1,6 @@
 import threading
 import puzzle1
 from gi.repository import Gtk, Gdk, GObject
-import time
 
 class MyWindow(Gtk.Window):
     
@@ -13,36 +12,29 @@ class MyWindow(Gtk.Window):
 
         self.verticalBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(self.verticalBox)
-        
-        self.col1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        self.verticalBox.pack_start(self.col1, True, True, 0)
-        self.col2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        self.verticalBox.pack_start(self.col2, True, True, 0)
-        
-        
+        #missatge que s'actualitza    
         self.msg = Gtk.Label("Esperant tarjeta NFC...")
-        self.col1.pack_start(self.msg, True, True, 0)
-        
-        
+        self.verticalBox.pack_start(self.msg, True, True, 0)
+        #botó per tornar a escanejar
         self.clear = Gtk.Button(label="clear")
         self.clear.connect("clicked", self.netejarPremut)
-        self.col2.pack_start(self.clear, True, True, 0)
+        self.verticalBox.pack_start(self.clear, True, True, 0)
     
     def netejarPremut(self, widjet):
         thread2 = threading.Thread(target= self.metodeThread)
         thread2.start()
         
-    def metodeThread(self):
-        GObject.idle_add(self.update_ui)
+    def metodeThread(self):  #metode executat pels threads secondaris
+        GObject.idle_add(self.update_ui)  #metode concurrent per modificar la interfaç
         uid = l1.llegir()
         print(uid)
         GObject.idle_add(self.update_ui2, uid)
         
-    def update_ui(self): 
+    def update_ui(self): #actualització al premer clear
         self.msg.set_text("Esperant targeta NFC...")
         self.msg.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("green"))
     
-    def update_ui2(self, uid):
+    def update_ui2(self, uid): #actualització al llegir NFC
         self.msg.set_text(uid)
         self.msg.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))
         
