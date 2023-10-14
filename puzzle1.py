@@ -14,9 +14,10 @@ class Lector_NFC():
         self.pn532.SAM_configuration() #metode de configuració del lector
         
     def llegir(self):
+        uid = None
         uid_str = ""
         print("Esperant una tarjeta NFC...")
-        while True:
+        while uid == None:
             try:
                 # Intenta detectar una tarjeta NFC
                 uid = self.pn532.read_passive_target() #es un array de 4 HEX. Mètode amb el qual se li dona la ordre al sensor de llegir una targeta
