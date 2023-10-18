@@ -20,10 +20,10 @@ class MyWindow(Gtk.Window):
         
         #botó per tornar a escanejar
         self.clear = Gtk.Button(label="clear")
-        self.clear.connect("clicked", self.netejarPremut)
+        self.clear.connect("clicked", self.clearPremut)
         self.verticalBox.pack_start(self.clear, True, True, 0)
     
-    def netejarPremut(self, widjet):
+    def clearPremut(self, widjet):
         thread2 = threading.Thread(target= self.metodeThread)
         thread2.start()
         
@@ -44,7 +44,6 @@ class MyWindow(Gtk.Window):
 
 
 #main:
-lock = threading.Lock()
 l1 = puzzle1.Lector_NFC()
 win = MyWindow()
 win.connect("destroy", Gtk.main_quit)
