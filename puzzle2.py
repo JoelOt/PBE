@@ -12,9 +12,12 @@ class MyWindow(Gtk.Window):
 
         self.verticalBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(self.verticalBox)
+        
         #missatge que s'actualitza    
         self.msg = Gtk.Label("Esperant tarjeta NFC...")
+        self.msg.set_padding(10,50)
         self.verticalBox.pack_start(self.msg, True, True, 0)
+        
         #botó per tornar a escanejar
         self.clear = Gtk.Button(label="clear")
         self.clear.connect("clicked", self.netejarPremut)
@@ -31,11 +34,11 @@ class MyWindow(Gtk.Window):
         GObject.idle_add(self.update_ui2, uid)
         
     def update_ui(self): #actualització al premer clear
-        self.msg.set_text("Esperant targeta NFC...")
+        self.msg.set_text("Please, login with your university card")
         self.msg.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("green"))
     
     def update_ui2(self, uid): #actualització al llegir NFC
-        self.msg.set_text(uid)
+        self.msg.set_text("uid: " + uid)
         self.msg.modify_bg(Gtk.StateFlags.NORMAL, Gdk.color_parse("red"))
         
 
